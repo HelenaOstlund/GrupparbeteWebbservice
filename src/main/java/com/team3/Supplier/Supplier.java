@@ -1,4 +1,4 @@
-package com.team3.GruppArbeteWebbService;
+package com.team3.Supplier;
 
 public class Supplier {
 
