@@ -16,10 +16,13 @@ public class Employee{
     @Column(name = "id", nullable = false)
     private long id;
 
+
+
     @Column(name = "name")
     private String name;
 
-    @Column(name = "SSN")
+
+    @Column(name = "ssn")
     private String SSN;
 
     @Column(name = "role")

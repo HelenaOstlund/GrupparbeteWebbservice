@@ -2,7 +2,7 @@ package com.team3.GruppArbeteWebbService.staff;
 
 enum Role {
     WAITERS,
-    CHEF,
+    CHEF, // = 1
     SOUSCHEF,
     SOMMELIER
 
