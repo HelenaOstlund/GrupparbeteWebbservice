@@ -37,4 +37,9 @@ public class SupplierController {
             return supplier.getId();
         }
 
+    @PutMapping("/updateSupplier/{id}")
+        private Supplier updateSupplier(@RequestBody Supplier supplier, @PathVariable("id") int id) {
+        return supplierService.edit(supplier, id);
+    }
+
 }
