@@ -2,16 +2,20 @@ package com.team3.GruppArbeteWebbService.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.team3.GruppArbeteWebbService.Supplier.Supplier;
-import com.team3.GruppArbeteWebbService.Supplier.SupplierRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class SupplierService {
+
+    final SupplierRepository supplierRepository;
+
     @Autowired
-    SupplierRepository supplierRepository;
+    public SupplierService(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
+    }
 
     public List<Supplier> getAllSupplier() {
         List<Supplier> suppliers = new ArrayList<Supplier>();
@@ -23,15 +27,24 @@ public class SupplierService {
         return supplierRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Supplier supplier) {
+    public void create(Supplier supplier) {
+        Optional<Supplier> supplierOptional = supplierRepository.existsByName(supplier.getName());
+        if (supplierOptional.isPresent()){
+            throw new IllegalStateException("Supplier already exists");
+        }
         supplierRepository.save(supplier);
     }
 
     public void delete(int id) {
-        supplierRepository.deleteById(id);
+        if(supplierRepository.existsById(id)){
+            supplierRepository.deleteById(id);
+        }
+        else{
+            throw new RuntimeException("Supplier with id " + id + " does not exist");
+        }
     }
 
-    public Supplier edit(Supplier supplier, int id) {
+    public Supplier replace(Supplier supplier, int id) {
         Supplier supplierInDB = supplierRepository.findById(id).get();
 
         if (Objects.nonNull(supplier.getName())) {
@@ -39,4 +52,13 @@ public class SupplierService {
 
             return supplierRepository.save(supplierInDB);
         }
+    public Supplier edit(Supplier supplier, int id) {
+        Supplier supplierInDB = supplierRepository.findById(id).get();
+
+        if (Objects.nonNull(supplier.getName())) {
+            supplierInDB.setName(supplier.getName());}
+
+        return supplierRepository.save(supplierInDB);
+    }
+
     }

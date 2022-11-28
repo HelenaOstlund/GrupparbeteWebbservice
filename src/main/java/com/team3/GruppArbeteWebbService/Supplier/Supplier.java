@@ -15,9 +15,10 @@ public class Supplier {
     @Column(name = "supplier_name")
     private String name;
 
-    public Supplier (){
+    @Column(name = "product_category")
+    private String category;
 
-    }
+    public Supplier (){}
 
     public int getId(){
         return id;
@@ -28,6 +29,12 @@ public class Supplier {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category){
+        this.category = category;
     }
 
 }

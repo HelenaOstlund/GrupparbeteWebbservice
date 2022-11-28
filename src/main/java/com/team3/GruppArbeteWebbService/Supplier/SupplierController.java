@@ -1,6 +1,5 @@
 package com.team3.GruppArbeteWebbService.Supplier;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +12,13 @@ import java.util.List;
 
 @RestController
 public class SupplierController {
+
+    private final SupplierService supplierService;
+
     @Autowired
-    SupplierService supplierService;
+    public SupplierController(SupplierService supplierService) {
+        this.supplierService = supplierService;
+    }
 
     @GetMapping("/supplier")
     private List<Supplier> getAllSupplier() {
@@ -32,13 +36,18 @@ public class SupplierController {
     }
 
     @PostMapping("/supplier")
-        private int saveOrUpdateSupplier(@RequestBody Supplier supplier){
-            supplierService.saveOrUpdate(supplier);
+        private int createSupplier(@RequestBody Supplier supplier){
+            supplierService.create(supplier);
             return supplier.getId();
         }
 
-    @PutMapping("/updateSupplier/{id}")
-        private Supplier updateSupplier(@RequestBody Supplier supplier, @PathVariable("id") int id) {
+    @PutMapping("/replaceSupplier/{id}")
+        private Supplier replaceSupplier(@RequestBody Supplier supplier, @PathVariable("id") int id) {
+        return supplierService.replace(supplier, id);
+    }
+
+    @PatchMapping("/updateSupplier/{id}")
+            private Supplier updateSupplier(@RequestBody Supplier supplier, @PathVariable("id") int id) {
         return supplierService.edit(supplier, id);
     }
 
