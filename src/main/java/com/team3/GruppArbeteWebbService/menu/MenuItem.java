@@ -2,33 +2,45 @@ package com.team3.GruppArbeteWebbService.menu;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "MenuItem")
 @Getter
 @Setter
-@AllArgsConstructor
 
 public class MenuItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="ITEM_TYPE")
-    @Enumerated(EnumType.STRING)
+    @Enumerated
+    @Column(name="item_type")
     private ItemType itemType;
 
-    @Column(name="NAME")
+    @Column(name="name")
     private String name;
 
-    @Column(name="PRICE")
-    private String price;
+    @Column(name="price")
+    private int price;
 
-    public MenuItem() {
+    @ManyToMany
+    @JoinTable(name = "ingredients_in_item",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn (name = "ingredient_id"))
+    private Set<Ingredient> ingredients = new HashSet<>();
 
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredients.add(ingredient);
     }
 }
