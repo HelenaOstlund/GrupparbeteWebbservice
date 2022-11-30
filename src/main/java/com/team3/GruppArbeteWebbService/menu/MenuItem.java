@@ -1,15 +1,11 @@
 package com.team3.GruppArbeteWebbService.menu;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "MenuItem")
@@ -19,7 +15,7 @@ import java.util.Set;
 public class MenuItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_generator")
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -33,14 +29,19 @@ public class MenuItem {
     @Column(name="price")
     private int price;
 
-    @ManyToMany
-    @JoinTable(name = "ingredients_in_item",
+
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "item_ingredient",
             joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn (name = "ingredient_id"))
-    private Set<Ingredient> ingredients = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private List<Ingredient> ingredients;
 
 
-    public void addIngredient(Ingredient ingredient) {
-        ingredients.add(ingredient);
-    }
+
 }

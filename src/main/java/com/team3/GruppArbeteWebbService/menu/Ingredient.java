@@ -1,11 +1,11 @@
 package com.team3.GruppArbeteWebbService.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "Ingredient")
@@ -14,15 +14,16 @@ import java.util.Set;
 
 public class Ingredient {
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "ingredients")
-    public Set<MenuItem> menuItems = new HashSet<>();
+    private List<MenuItem> menuItems = new java.util.ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
 }

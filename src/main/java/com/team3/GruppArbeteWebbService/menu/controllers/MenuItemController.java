@@ -29,9 +29,24 @@ public class MenuItemController {
             @PathVariable Long itemId,
             @RequestBody Ingredient ingredient
     ){
-        MenuItem menuItem = menuItemService.getItemById(itemId);
-        menuItemService.addIngredientToMenuItem(itemId,ingredient);
-        return menuItemService.postItem(menuItem);
+        try {
+            menuItemService.addIngredientToMenuItem(itemId,ingredient);
+            return new ResponseEntity("Ingredient added to item", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Menu item not found. Exception: " + e, HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("/{itemId}/removeIngredient")
+    ResponseEntity<MenuItem> removeIngredientFromItem(
+            @PathVariable Long itemId,
+            @RequestBody Ingredient ingredient
+    ){
+        try {
+            menuItemService.removeIngredientFromMenuItem(itemId,ingredient);
+            return new ResponseEntity("Ingredient removed from item", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Menu item not found. Exception: " + e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PatchMapping(path = "/menu/item/update-name/{id}")

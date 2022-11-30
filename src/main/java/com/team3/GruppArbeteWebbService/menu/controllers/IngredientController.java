@@ -30,7 +30,7 @@ public class IngredientController {
     }
 
     @GetMapping(path = "/menu/ingredient/get/{id}")
-    private ResponseEntity<MenuItem> getMenuById(@PathVariable("id") int id) {
+    private ResponseEntity<Ingredient> getIngredientById(@PathVariable("id") int id) {
         try {
             Ingredient ingredient = ingredientService.getIngredientById((long) id);
             return new ResponseEntity(ingredient, HttpStatus.OK);
