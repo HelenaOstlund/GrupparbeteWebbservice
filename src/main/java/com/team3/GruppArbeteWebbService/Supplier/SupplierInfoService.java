@@ -20,5 +20,12 @@ public class SupplierInfoService {
         supplierInfoRepository.findAll().forEach(supplierInfo -> suppliersInfo.add(supplierInfo));
         return suppliersInfo;
     }
+    public void create(SupplierInfo supplierInfo) {
+        supplierInfoRepository.save(supplierInfo);
+    }
+
+    public void delete(int id) {
+        supplierInfoRepository.deleteById(id);
+    }
 
 }

@@ -12,6 +12,7 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(name = "supplier_name")
     private String name;
 

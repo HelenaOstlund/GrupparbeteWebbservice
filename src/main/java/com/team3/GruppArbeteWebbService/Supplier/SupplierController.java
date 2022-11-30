@@ -26,12 +26,12 @@ public class SupplierController {
     }
 
     @GetMapping("/supplier/{id}")
-    private Supplier getSupplier(@PathVariable("id") int id) {
+    private Supplier getSupplierById(@PathVariable("id") int id) {
         return supplierService.getSupplierById(id);
     }
 
     @DeleteMapping("/supplier/{id}")
-    private void deleteSupplier(@PathVariable("id") int id) {
+    private void deleteSupplierById(@PathVariable("id") int id) {
         supplierService.delete(id);
     }
 
