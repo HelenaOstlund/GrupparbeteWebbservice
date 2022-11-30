@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +21,17 @@ public class Menu {
     @Column(name = "name")
     private String Name;
 
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "menu_menuItem",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<MenuItem> menuItems = new ArrayList<>();
 
 
 }

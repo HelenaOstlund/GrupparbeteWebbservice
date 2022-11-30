@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Optional;
 
 @RestController
 public class MenuController {
@@ -20,7 +17,20 @@ public class MenuController {
     @PostMapping(path = "/menu/post")
     public Menu saveMenu(@RequestBody Menu menu) {
         return menuService.postMenu(menu);
+    }
 
+    @PutMapping(path = "/menu/{menuId}/post-item/{itemId}")
+    ResponseEntity<Menu> addItemToMenu(
+            @PathVariable Long menuId,
+            @PathVariable Long itemId
+    ){
+        try{
+            menuService.addItemToMenu(menuId, itemId);
+            return new ResponseEntity("Item added to menu", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("Menu not found. Exception: " + e, HttpStatus.BAD_REQUEST);
+
+        }
     }
 
     @GetMapping(path = "/menu/get/{id}")

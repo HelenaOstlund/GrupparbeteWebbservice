@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,6 +42,10 @@ public class MenuItem {
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
     private List<Ingredient> ingredients;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "menuItems")
+    private List<Menu> menus = new ArrayList<>();
 
 
 

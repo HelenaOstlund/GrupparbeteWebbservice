@@ -58,7 +58,6 @@ public class MenuItemService {
     }
     public ResponseEntity<MenuItem> removeIngredientFromMenuItem(Long menuItemId, Ingredient ingredient) {
         MenuItem item = menuItemRepository.findById(menuItemId).get();
-        List<Ingredient> tempList = item.getIngredients();
         for (int i = 0; i < item.getIngredients().size() ; i++) {
             if (item.getIngredients().get(i).getName().equalsIgnoreCase(ingredient.getName())){
                 item.getIngredients().remove(i);
