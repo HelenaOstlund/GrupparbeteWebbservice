@@ -1,6 +1,6 @@
 package com.team3.GruppArbeteWebbService.staff;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,25 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@RequiredArgsConstructor
 @Service
 public class EmployeeService {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllEmployee() {
+    public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
-        employeeRepository.findAll().forEach(employee -> employees.add(employee));
+        employees.addAll(employeeRepository.findAll());
 
         return employees;
     }
 
     public Employee getEmployeeById(long id) {
+
         return employeeRepository.findById(id).get();
 
     }
-
-    public ResponseEntity<Employee> save(Employee employee) {
+//TODO: check if employee already exists
+    public ResponseEntity<Employee> saveEmployee(Employee employee) {
         try {
             employeeRepository.save(employee);
             return new ResponseEntity<>(employee, HttpStatus.OK);
@@ -35,44 +36,47 @@ public class EmployeeService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    /* if (title == null)
+            tutorialRepository.findAll().forEach(tutorials::add);
+        else
+            tutorialRepository.findByTitleContaining(title).forEach(tutorials::add);
 
-    public void delete(long id) {
-        employeeRepository.deleteById(id);
+        if (tutorials.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(tutorials, HttpStatus.OK);
+    }*/
+
+    public ResponseEntity<Employee> deleteEmployee(long id) {
+        try {
+            employeeRepository.deleteById(id);
+            return new ResponseEntity("Item deleted", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Item not found: " + e, HttpStatus.NOT_FOUND);
+        }
     }
 
+//PUT and PATCH
     public Employee edit(Employee employee, long id) {
         Employee employeeInDB = employeeRepository.findById(id).get();
-/*
-       if (Objects.nonNull(employee.getName())
-                && !"".equalsIgnoreCase(
-                employee.getName())) {
-            employee.setName(
-                    employee.getName());
-        }
 
-        if (Objects.nonNull(
-                employee.getSSN())
-                && !"".equalsIgnoreCase(
-                employee.getSSN())) {
-            employeeInDB.setSSN(
-                    employee.getSSN());
-        }
+       if(Objects.nonNull(employee.getName())){
+           employeeInDB.setName(employee.getName());
+       }
+      //  if(Objects.nonNull(employee.get())){
+        //    employeeInDB.setTeamId(employee.getTeamId());
+    //    }
+       if(Objects.nonNull(employee.getPhonenumber())){
+           employeeInDB.setPhonenumber(employee.getPhonenumber());
+       }
+       if(Objects.nonNull(employee.getRole())){
+           employeeInDB.setRole(employee.getRole());
+       }
+       if(Objects.nonNull(employee.getSSN())) {
+           employeeInDB.setSSN(employee.getSSN());
+       }
 
-        if (Objects.nonNull(employee.getPhonenumber())
-                && !"".equalsIgnoreCase(
-                employee.getPhonenumber())) {
-            employeeInDB.setPhonenumber(
-                    employee.getPhonenumber());
-        }
-if(Objects.nonNull(employee.getRole())){
-    employeeInDB.setRole(employee.getRole());
-}
-*/
-       if(Objects.nonNull(employee.getName())){ employeeInDB.setName(employee.getName());}
-       if(Objects.nonNull(employee.getPhonenumber())){ employeeInDB.setPhonenumber(employee.getPhonenumber());}
-       if(Objects.nonNull(employee.getRole())){ employeeInDB.setRole(employee.getRole());}
-       if(Objects.nonNull(employee.getSSN())){ employeeInDB.setSSN(employee.getSSN());}
-        //final Employee updatedEmployee = employeeRepository.save(employeeInDB);
         return employeeRepository.save(employeeInDB);
 
     }

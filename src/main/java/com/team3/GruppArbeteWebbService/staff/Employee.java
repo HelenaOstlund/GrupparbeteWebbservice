@@ -1,8 +1,13 @@
 package com.team3.GruppArbeteWebbService.staff;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -11,22 +16,30 @@ import javax.persistence.*;
 @Table(name = "employee")
 public class Employee{
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "team_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    //private List<Team> teamList  = new java.util.ArrayList<>();
+    private Team team;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
+   // @Column(name = "id", nullable = false)
+    private Long id;
+
 
     @Column(name = "name")
-    private String name;
+    String name;
 
     @Column(name = "ssn")
-    private String SSN;
+    String SSN;
 
     @Column(name = "role")
-    private Role role;
+    Role role;
 
     @Column(name = "phonenumber")
-    private String phonenumber;
+    String phonenumber;
 
 
 }

@@ -1,21 +1,23 @@
 package com.team3.GruppArbeteWebbService.staff;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class EmployeeController {
 
-    @Autowired
-    EmployeeService employeeService;
+   // @Autowired
+   private final EmployeeService employeeService;
+
 
     @GetMapping("/employee")
-    private ResponseEntity<List<Employee>> getAllEmployees() {
-        return new ResponseEntity<>(employeeService.getAllEmployee(), HttpStatus.OK);
+    private List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
     @GetMapping("/employee/{id}")
@@ -25,20 +27,15 @@ public class EmployeeController {
 
     @PostMapping("/addEmployee")
     private Employee saveEmployee(@RequestBody final Employee employee){
-       employeeService.save(employee);
+       employeeService.saveEmployee(employee);
         return employee;
     }
 
     @DeleteMapping("/deleteEmployee/{id}")
-    private String deleteEmployee(@PathVariable("id")long id){
-        employeeService.delete(id);
-        return "Deleted successfully.";
+    private ResponseEntity<Employee> deleteEmployee(@PathVariable("id")long id){
+       return employeeService.deleteEmployee(id);
     }
 
-   /* @PutMapping("/updateEmployee/{id}")
-    public Employee updateEmployee(@PathVariable("id") long id) {
-        return employeeService.edit(id);
-    }*/
 
     @PutMapping("/updateEmployee/{id}")
     private Employee updateEmployee(@RequestBody Employee employee, @PathVariable("id") long id){
