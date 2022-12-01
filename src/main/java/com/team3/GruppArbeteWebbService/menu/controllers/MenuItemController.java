@@ -28,54 +28,33 @@ public class MenuItemController {
     ResponseEntity<MenuItem> addIngredientToItem(
             @PathVariable Long itemId,
             @RequestBody Ingredient ingredient
-    ){
-        try {
-            menuItemService.addIngredientToMenuItem(itemId,ingredient);
-            return new ResponseEntity("Ingredient added to item", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Menu item not found. Exception: " + e, HttpStatus.NOT_FOUND);
-        }
+    )
+    {
+        return menuItemService.addIngredientToMenuItem(itemId,ingredient);
     }
+
     @DeleteMapping("/{itemId}/removeIngredient")
     ResponseEntity<MenuItem> removeIngredientFromItem(
             @PathVariable Long itemId,
             @RequestBody Ingredient ingredient
     ){
-        try {
-            menuItemService.removeIngredientFromMenuItem(itemId,ingredient);
-            return new ResponseEntity("Ingredient removed from item", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Menu item not found. Exception: " + e, HttpStatus.NOT_FOUND);
-        }
+        return menuItemService.removeIngredientFromMenuItem(itemId,ingredient);
+
     }
 
     @PatchMapping(path = "/menu/item/update-name/{id}")
     private ResponseEntity<MenuItem> updateItemName(@PathVariable("id") int id, @RequestBody String name) {
-        try {
-            menuItemService.updateItemName((long) id, name);
-            return new ResponseEntity("Name updated", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Menu item not found", HttpStatus.NOT_FOUND);
-        }
+        return menuItemService.updateItemName((long) id, name);
+
     }
 
     @GetMapping(path = "/menu/item/get/{id}")
-    private ResponseEntity<MenuItem> getMenuById(@PathVariable("id") int id) {
-        try {
-            MenuItem menuItem = menuItemService.getItemById((long) id);
-            return new ResponseEntity(menuItem, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Menu item not found", HttpStatus.NOT_FOUND);
-        }
+    private ResponseEntity<MenuItem> getItemById(@PathVariable("id") int id) {
+            return menuItemService.getItemById((long) id);
     }
 
     @DeleteMapping("/menu/item/delete/{id}")
     private ResponseEntity<MenuItem> deleteMenuById(@PathVariable("id") int id) {
-        try {
-            MenuItem menuItem = menuItemService.deleteItemById((long) id);
-            return new ResponseEntity("Menu item deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Menu item not found: " + e, HttpStatus.NOT_FOUND);
-        }
+        return menuItemService.deleteItemById((long) id);
     }
 }
