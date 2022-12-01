@@ -12,12 +12,12 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
-public class EmployeeServiceImpl implements EmployeeServiceInterface {
+public class EmployeeServiceImpl implements EmployeeService {
 
    private final EmployeeRepository employeeRepository;
 
     @Override
-    public ResponseEntity<Employee> getEmployeeId(long id) {
+    public ResponseEntity<Employee> getEmployeeById(long id) {
         return null;
     }
 
@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeServiceInterface {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-
+    //TODO: check if employee already exists
     @Override
     public ResponseEntity<Employee> saveEmployee(Employee employee) {
         try {
