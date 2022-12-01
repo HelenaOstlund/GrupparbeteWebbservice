@@ -31,9 +31,9 @@ public class TeamController {
     }
 
     @PostMapping("/addTeam")
-    private Team saveTeam(@RequestBody final Team team){
-        teamService.save(team);
-        return team;
+    private ResponseEntity<Team> saveTeam(@RequestBody final Team team){
+
+        return teamService.save(team);
     }
 
     /*

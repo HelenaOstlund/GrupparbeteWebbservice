@@ -24,10 +24,15 @@ public class EmployeeController {
         return employeeServiceImpl.getEmployeeById(id);
     }
 
+    /*
     @PostMapping("/addEmployee")
     private Employee saveEmployee(@RequestBody final Employee employee){
        employeeServiceImpl.saveEmployee(employee);
         return employee;
+    }*/
+    @PostMapping("/addEmployee")
+    private  ResponseEntity<Employee> saveEmployee(@RequestBody final Employee employee){
+        return employeeServiceImpl.saveEmployee(employee);
     }
 
     @DeleteMapping("/deleteEmployee/{id}")

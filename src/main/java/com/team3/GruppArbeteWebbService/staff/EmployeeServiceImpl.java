@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
-        employees.addAll(employeeRepository.findAll());
+        employeeRepository.findAll().addAll(employees);
 
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
@@ -33,8 +33,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<Employee> saveEmployee(Employee employee) {
         try {
-            employeeRepository.save(employee);
-            return new ResponseEntity<>(employee, HttpStatus.OK);
+            Employee employeeSaved = employeeRepository.save(employee);
+            return new ResponseEntity<>(employeeSaved, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

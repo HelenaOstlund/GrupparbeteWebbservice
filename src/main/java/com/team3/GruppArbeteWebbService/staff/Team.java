@@ -24,8 +24,9 @@ public class Team {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_generator")
-   //@Column(name = "team_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_generator")
+   @Column(name = "team_id", nullable = false)
     private long id;
 
 
