@@ -39,7 +39,7 @@ public class EmployeeController {
         return employeeServiceImpl.saveEmployee(employee);
     }
 
-    @PostMapping("/")
+    @PostMapping("/teams/{teamId}/employee")
     private ResponseEntity<Employee> saveEmployeeToTeam(@PathVariable(value = "teamId") Long teamId, @RequestBody final Employee employeeRequest) {
         return employeeServiceImpl.addEmployeeToTeam(teamId, employeeRequest);
     }

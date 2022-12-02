@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<List<Team>> getAllTeamsByEmployeeId(Long employeeId) {
         if (!employeeRepository.existsById(employeeId)) {
-            throw new IllegalStateException("Not found Tag  with id = " + employeeId);
+            throw new IllegalStateException("Not found employee  with id = " + employeeId);
         }
         List<Team> teams = teamRepository.findTeamsByEmployees(employeeId);
         return new ResponseEntity<>(teams, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
           team.addEmployee(employeeRequest);
             return employeeRepository.save(employeeRequest);
-        }).orElseThrow(() -> new IllegalStateException("Not found Tutorial with id = " + teamId));
+        }).orElseThrow(() -> new IllegalStateException("Not found teams with id = " + teamId));
 
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }

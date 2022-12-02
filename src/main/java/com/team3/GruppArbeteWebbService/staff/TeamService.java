@@ -44,7 +44,7 @@ public class TeamService {
 
     public ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId) {
         if (!teamRepository.existsById(teamId)) {
-            throw new IllegalStateException("Not found Tutorial with id = " + teamId);
+            throw new IllegalStateException("Not found teams with id = " + teamId);
         }
         List<Employee> employees = employeeRepository.findEmployeeByTeams(teamId);
         return new ResponseEntity<>(employees, HttpStatus.OK);

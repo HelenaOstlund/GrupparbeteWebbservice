@@ -46,36 +46,16 @@ public class Team {
 
     }
 
-    public void addEmployee(Employee employee){
+    public void addEmployee(Employee employee) {
         this.employees.add(employee);
         employee.getTeams().add(this);
     }
 
-    public void removeEmployee(long employeeId){
+    public void removeEmployee(long employeeId) {
         Employee employee = this.employees.stream().filter(e -> e.getId() == employeeId).findFirst().orElse(null);
-        if(employee != null){
+        if (employee != null) {
             this.employees.remove(employee);
             employee.getTeams().remove(this);
         }
     }
-    /*
-    @OneToMany(mappedBy="team", fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL)
-    private Set<Employee> employees;
-*/
-
-
-
-    /*
-    @Embeddable
-class Allergens {
-
-    @Column(name = "peanuts", table = "allergens")
-    boolean peanuts;
-
-    @Column(name = "celery", table = "allergens")
-    boolean celery;
-
-    @Column(name = "sesame_seeds", table = "allergens")
-    boolean sesameSeeds;*/
 }

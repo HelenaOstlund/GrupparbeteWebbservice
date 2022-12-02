@@ -16,7 +16,6 @@ public interface EmployeeService {
     ResponseEntity<Employee>getEmployeeById(long id);
     ResponseEntity<List<Employee>> getAllEmployees();
     ResponseEntity<Employee> addEmployeeToTeam(long teamId, Employee employeeRequest);
-   // ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId);
     ResponseEntity<Employee> saveEmployee(Employee employee);
     ResponseEntity<List<Team>> getAllTeamsByEmployeeId(Long employeeId);
     ResponseEntity<Employee> deleteEmployee(long id);
