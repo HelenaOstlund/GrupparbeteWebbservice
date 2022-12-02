@@ -33,6 +33,18 @@ public class MenuItemController {
         return menuItemService.addIngredientToMenuItem(itemId,ingredient);
     }
 
+
+    @PutMapping("/{itemId}/addIngredient/{ingredientId}")
+    ResponseEntity<MenuItem> addIngredientById(
+            @PathVariable Long itemId,
+            @PathVariable Long ingredientId
+    )
+    {
+        return menuItemService.addIngredientById(itemId,ingredientId);
+    }
+
+
+
     @DeleteMapping("/{itemId}/removeIngredient")
     ResponseEntity<MenuItem> removeIngredientFromItem(
             @PathVariable Long itemId,

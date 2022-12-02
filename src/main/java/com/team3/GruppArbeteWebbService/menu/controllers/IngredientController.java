@@ -31,22 +31,12 @@ public class IngredientController {
 
     @GetMapping(path = "/menu/ingredient/get/{id}")
     private ResponseEntity<Ingredient> getIngredientById(@PathVariable("id") int id) {
-        try {
-            Ingredient ingredient = ingredientService.getIngredientById((long) id);
-            return new ResponseEntity(ingredient, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Menu item not found", HttpStatus.NOT_FOUND);
-        }
+        return ingredientService.getIngredientById((long) id);
     }
 
     @DeleteMapping("/menu/ingredient/delete/{id}")
     private ResponseEntity<Ingredient> deleteIngredientById(@PathVariable("id") int id) {
-        try {
-            Ingredient ingredient = ingredientService.deleteIngredientById((long) id);
-            return new ResponseEntity("Ingredient deleted", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Ingredient not found", HttpStatus.NOT_FOUND);
-        }
+        return ingredientService.deleteIngredientById((long) id);
     }
 
 }
