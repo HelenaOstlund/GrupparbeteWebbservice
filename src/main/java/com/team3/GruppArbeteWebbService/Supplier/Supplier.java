@@ -21,13 +21,17 @@ public class Supplier {
 
     public Supplier (){}
 
+    public Supplier (String name, String category){
+        this.name = name;
+        this.category = category;
+    }
+
     public int getId(){
         return id;
     }
     public String getName(){
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }

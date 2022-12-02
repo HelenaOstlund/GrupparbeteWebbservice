@@ -14,7 +14,6 @@ public class SupplierInfoService {
     public SupplierInfoService(SupplierInfoRepository supplierInfoRepository) {
         this.supplierInfoRepository = supplierInfoRepository;
     }
-
     public List<SupplierInfo> getAllSupplierInfo() {
         List<SupplierInfo> suppliersInfo = new ArrayList<SupplierInfo>();
         supplierInfoRepository.findAll().forEach(supplierInfo -> suppliersInfo.add(supplierInfo));
@@ -23,7 +22,6 @@ public class SupplierInfoService {
     public void create(SupplierInfo supplierInfo) {
         supplierInfoRepository.save(supplierInfo);
     }
-
     public void delete(int id) {
         supplierInfoRepository.deleteById(id);
     }

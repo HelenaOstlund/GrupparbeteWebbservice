@@ -1,6 +1,8 @@
 package com.team3.GruppArbeteWebbService.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +23,14 @@ public class SupplierController {
     }
 
     @GetMapping("/supplier")
-    private List<Supplier> getAllSupplier() {
-        return supplierService.getAllSupplier();
+    public ResponseEntity<List <Supplier>> getAllSupplier(@RequestBody Supplier suppliers) {
+        return supplierService.getAllSupplier((List) suppliers);
     }
 
     @GetMapping("/supplier/{id}")
-    private Supplier getSupplierById(@PathVariable("id") int id) {
+    public ResponseEntity<Supplier> getIdSupplier (@PathVariable("id") int id) {
         return supplierService.getSupplierById(id);
+
     }
 
     @DeleteMapping("/supplier/{id}")
@@ -36,20 +39,15 @@ public class SupplierController {
     }
 
     @PostMapping("/supplier")
-        private int createSupplier(@RequestBody Supplier supplier){
-            supplierService.create(supplier);
-            return supplier.getId();
+        public ResponseEntity<Supplier> createSupplier(@RequestBody Supplier supplier){
+           return supplierService.create(supplier);
         }
 
-    @PutMapping("/replaceSupplier/{id}")
-        private Supplier replaceSupplier(@RequestBody Supplier supplier, @PathVariable("id") int id) {
-        return supplierService.replace(supplier, id);
-    }
+        @PutMapping("/updateSupplier/{id}")
+            public void updateSupplier(@RequestParam String name, String category, @PathVariable("id") int id) {
+         supplierService.update(name, category, id);
 
-    @PatchMapping("/updateSupplier/{id}")
-            private Supplier updateSupplier(@RequestBody Supplier supplier, @PathVariable("id") int id) {
-        return supplierService.edit(supplier, id);
-    }
+        }
 
 
 
