@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,11 +32,19 @@ public class SupplierServiceImpl implements SupplierService {
         }
     }
 
+
     @Override
-    public ResponseEntity<List<Supplier>> getAllSupplier(List suppliers) {
-        List<Supplier> supplier = new ArrayList<Supplier>();
-        supplierRepository.findAll().forEach(Supplier -> suppliers.add(supplier));
-        return new ResponseEntity (suppliers, HttpStatus.OK);
+    public ResponseEntity<List<Supplier>> getAllSupplier() {
+        try {
+            List<Supplier> suppliers = new ArrayList<>();
+            supplierRepository.findAll().forEach(suppliers::add);
+            if (suppliers.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(suppliers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -60,38 +68,17 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-   @Transactional
-    public void update(String name, String category, int id) {
-    Optional<Supplier> supplier = supplierRepository.findById(id);
-
-
-        if (name != null && name.length() > 0 &&
-                !Objects.equals(supplier.getName(), name)) {
+    public ResponseEntity<Supplier> update(String name, String category, int id) {
+        Supplier supplier = supplierRepository.findById(id).get();
+        if (Objects.nonNull(name) && !"".equalsIgnoreCase(name)){
             supplier.setName(name);
         }
-
-
-
-
+        if (Objects.nonNull(category) && !"".equalsIgnoreCase(category)){
+            supplier.setCategory(category);
+        }
+        supplierRepository.save(supplier);
+        return new ResponseEntity("update ok", HttpStatus.OK);
     }
 
-
-    /*@Override
-    public Supplier replace(Supplier supplier, int id) {
-        Supplier supplierInDB = supplierRepository.findById(id).get();
-
-        if (Objects.nonNull(supplier.getName())) {
-            supplierInDB.setName(supplier.getName());}
-
-        return supplierRepository.save(supplierInDB);
-    }
-   @Override
-    public Supplier edit(Supplier supplier, int id) {
-        Supplier supplierInDB = supplierRepository.findById(id).get();
-
-        if (Objects.nonNull(supplier.getName())) {
-            supplierInDB.setName(supplier.getName());}
-
-        return supplierRepository.save(supplierInDB);
-    }*/
 }
+
