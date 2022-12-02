@@ -1,28 +1,27 @@
 package com.team3.GruppArbeteWebbService.staff;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RestController
 public class TeamController {
 
     private final TeamService teamService;
 
-    List<Team> teamList = new ArrayList<>(
-            Arrays.asList(
-                    //        new Team("First Shift Team", List<Employee> employeeList, )
-            )
-    );
+    //eller employeeServiceImpl?
+   // private final EmployeeService employeeService;
 
+    @Autowired
+    public TeamController(TeamService teamService) {
+        this.teamService = teamService;
+
+    }
 
 
     @GetMapping("/team")
@@ -32,9 +31,15 @@ public class TeamController {
 
     @PostMapping("/addTeam")
     private ResponseEntity<Team> saveTeam(@RequestBody final Team team){
-
         return teamService.save(team);
     }
+
+
+    @GetMapping("teams/{teamId}/employees")
+    public ResponseEntity<List<Employee>> getAllEmployeesByTeam(@PathVariable(value = "teamId") Long teamId) {
+        return teamService.getAllEmployeesByTeam(teamId);
+    }
+
 
     /*
 

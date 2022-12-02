@@ -7,37 +7,17 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Getter
 @Setter
-@Table(name = "employee")
+@Table(name = "employees")
 public class Employee{
 
-    /*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "team_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    //private List<Team> teamList  = new java.util.ArrayList<>();
-
-
-    private Team team;
-  */
-
-    public Employee(String name, String SSN, Role role, String phonenumber) {
-        this.name = name;
-        this.SSN = SSN;
-        this.role = role;
-        this.phonenumber = phonenumber;
-    }
-
-
-    public Employee(){
-
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,7 +38,39 @@ public class Employee{
     @Column(name = "phonenumber")
     private String phonenumber;
 
+   // private Set<Team> teams;
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 
 
+
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "employees")
+    @JsonIgnore
+    private Set<Team> teams = new HashSet<>();
+
+
+    public Employee(String name, String SSN, Role role, String phonenumber) {
+        this.name = name;
+        this.SSN = SSN;
+        this.role = role;
+        this.phonenumber = phonenumber;
+    }
+
+
+    public Employee(){
+
+    }
 
 }

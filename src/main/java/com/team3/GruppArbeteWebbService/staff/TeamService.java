@@ -1,19 +1,27 @@
 package com.team3.GruppArbeteWebbService.staff;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Service
 public class TeamService {
 
-   private final TeamRepository teamRepository;
+    private final TeamRepository teamRepository;
+    private final EmployeeRepository employeeRepository;
+
+    @Autowired
+    public TeamService(TeamRepository teamRepository, EmployeeRepository employeeRepository) {
+        this.teamRepository = teamRepository;
+        this.employeeRepository = employeeRepository;
+    }
+
 
     public ResponseEntity<List<Team>> getAllTeams() {
         List<Team> teams = new ArrayList<>();
@@ -24,14 +32,22 @@ public class TeamService {
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
-
-    public ResponseEntity<Team> save(Team team) {
+    public ResponseEntity<Team> save(@RequestBody Team team) {
         try {
             teamRepository.save(new Team(team.getTeamType(), team.getManagerId()));
             return new ResponseEntity<>(team, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    public ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId) {
+        if (!teamRepository.existsById(teamId)) {
+            throw new IllegalStateException("Not found Tutorial with id = " + teamId);
+        }
+        List<Employee> employees = employeeRepository.findEmployeeByTeams(teamId);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
 

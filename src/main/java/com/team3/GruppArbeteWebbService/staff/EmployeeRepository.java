@@ -6,5 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
-
+    List<Employee> findEmployeeByTeams(Long teamId);
 }

@@ -2,11 +2,12 @@ package com.team3.GruppArbeteWebbService.staff;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 //interface ökar säkerheten
-@Service
+//@Service
 public interface EmployeeService {
 
 
@@ -14,9 +15,11 @@ public interface EmployeeService {
 
     ResponseEntity<Employee>getEmployeeById(long id);
     ResponseEntity<List<Employee>> getAllEmployees();
+    ResponseEntity<Employee> addEmployeeToTeam(long teamId, Employee employeeRequest);
+   // ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId);
     ResponseEntity<Employee> saveEmployee(Employee employee);
+    ResponseEntity<List<Team>> getAllTeamsByEmployeeId(Long employeeId);
     ResponseEntity<Employee> deleteEmployee(long id);
     ResponseEntity<Employee> editEmployee(Employee employee, long id);
-
 
 }
