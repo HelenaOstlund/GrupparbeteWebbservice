@@ -51,11 +51,4 @@ public class Team {
         employee.getTeams().add(this);
     }
 
-    public void removeEmployee(long employeeId) {
-        Employee employee = this.employees.stream().filter(e -> e.getId() == employeeId).findFirst().orElse(null);
-        if (employee != null) {
-            this.employees.remove(employee);
-            employee.getTeams().remove(this);
-        }
-    }
 }

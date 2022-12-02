@@ -3,12 +3,9 @@ package com.team3.GruppArbeteWebbService.staff;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -53,14 +50,6 @@ public class Employee{
             mappedBy = "employees")
     @JsonIgnore
     private Set<Team> teams = new HashSet<>();
-
-
-    public Employee(String name, String SSN, Role role, String phonenumber) {
-        this.name = name;
-        this.SSN = SSN;
-        this.role = role;
-        this.phonenumber = phonenumber;
-    }
 
 
     public Employee(){

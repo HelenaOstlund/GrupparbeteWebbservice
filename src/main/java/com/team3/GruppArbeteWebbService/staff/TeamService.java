@@ -9,7 +9,6 @@ public interface TeamService {
 
     ResponseEntity<List<Team>> getAllTeams();
     ResponseEntity<Team> save(Team team);
-    //ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId);
     ResponseEntity<Team> deleteTeam(long teamId);
 
 }

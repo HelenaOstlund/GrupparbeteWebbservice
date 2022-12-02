@@ -13,12 +13,10 @@ import java.util.List;
 public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
-    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository, EmployeeRepository employeeRepository) {
+    public TeamServiceImpl(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
-        this.employeeRepository = employeeRepository;
     }
 
     @Override
@@ -41,18 +39,6 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    //TODO -make it work
-/*
-    @Override
-    public ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId) {
-      try{
-          List<Employee> employees = employeeRepository.findEmployeeByTeams(teamId);
-          return new ResponseEntity<>(employees, HttpStatus.OK);
-      } catch (Exception e){
-          return new ResponseEntity("Team not found: " + e, HttpStatus.NOT_FOUND);
-      }
-    }
- */
     @Override
     public ResponseEntity<Team> deleteTeam(long id) {
         try {

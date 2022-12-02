@@ -27,12 +27,7 @@ public class EmployeeController {
     private ResponseEntity<Employee> getEmployee(@PathVariable("id") long id) {
         return employeeServiceImpl.getEmployeeById(id);
     }
-/*
-    @GetMapping("/employees/{id}/teams")
-    private ResponseEntity<List<Team>> getAllTeamsByEmployee(@PathVariable("id") long id) {
-        return employeeServiceImpl.getAllTeamsByEmployee(id);
-    }
- */
+
     @PostMapping("/addEmployee")
     private ResponseEntity<Employee> saveEmployee(@RequestBody final Employee employee) {
         return employeeServiceImpl.saveEmployee(employee);
