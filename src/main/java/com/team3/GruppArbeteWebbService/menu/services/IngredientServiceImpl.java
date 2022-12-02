@@ -1,5 +1,6 @@
 package com.team3.GruppArbeteWebbService.menu.services;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.team3.GruppArbeteWebbService.menu.Ingredient;
 import com.team3.GruppArbeteWebbService.menu.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     }
 
+
     @Override
     public ResponseEntity<Ingredient> deleteIngredientById(Long id)
     {
@@ -64,6 +66,16 @@ public class IngredientServiceImpl implements IngredientService {
             ingredientRepository.deleteById(id);
             return new ResponseEntity("Ingredient deleted", HttpStatus.OK);
         }catch (Exception e){
+            return new ResponseEntity("Error with code: " + e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Ingredient>> getAllIngredients() {
+        try {
+            return new ResponseEntity(ingredientRepository.findAll() , HttpStatus.OK);
+        }
+        catch (Exception e ){
             return new ResponseEntity("Error with code: " + e, HttpStatus.BAD_REQUEST);
         }
     }

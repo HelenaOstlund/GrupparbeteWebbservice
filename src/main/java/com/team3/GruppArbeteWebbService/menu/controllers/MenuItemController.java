@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class MenuItemController {
 
@@ -63,6 +65,11 @@ public class MenuItemController {
     @GetMapping(path = "/menu/item/get/{id}")
     private ResponseEntity<MenuItem> getItemById(@PathVariable("id") int id) {
             return menuItemService.getItemById((long) id);
+    }
+
+    @GetMapping(path = "/menu/item/get/all")
+    private ResponseEntity<List<MenuItem>> getAllItems() {
+        return menuItemService.getAllItems();
     }
 
     @DeleteMapping("/menu/item/delete/{id}")

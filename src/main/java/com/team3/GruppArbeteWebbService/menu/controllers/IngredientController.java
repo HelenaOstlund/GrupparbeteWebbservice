@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class IngredientController {
 
@@ -32,6 +34,11 @@ public class IngredientController {
     @GetMapping(path = "/menu/ingredient/get/{id}")
     private ResponseEntity<Ingredient> getIngredientById(@PathVariable("id") int id) {
         return ingredientService.getIngredientById((long) id);
+    }
+
+    @GetMapping("/menu/ingredient/all")
+    private ResponseEntity<List<Ingredient>> getAllIngredients() {
+        return ingredientService.getAllIngredients();
     }
 
     @DeleteMapping("/menu/ingredient/delete/{id}")

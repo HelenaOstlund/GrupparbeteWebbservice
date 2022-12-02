@@ -42,7 +42,6 @@ public class MenuItemServiceImpl implements MenuItemService {
         }
     }
 
-
     @Override
     public ResponseEntity<MenuItem> getItemById(Long id) {
         try {
@@ -115,6 +114,15 @@ public class MenuItemServiceImpl implements MenuItemService {
             item.getIngredients().add(ingredient);
             menuItemRepository.saveAndFlush(item);
             return new ResponseEntity("Ingredient added to menuItem" + menuItemRepository.findById(itemId).get().getIngredients().toString(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity("Error with code: " + e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<MenuItem>> getAllItems() {
+        try {
+            return new ResponseEntity(menuItemRepository.findAll(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Error with code: " + e, HttpStatus.BAD_REQUEST);
         }
