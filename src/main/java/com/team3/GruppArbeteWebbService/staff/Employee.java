@@ -21,7 +21,6 @@ public class Employee{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
- //   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -38,18 +37,13 @@ public class Employee{
     @Column(name = "phonenumber")
     private String phonenumber;
 
-   // private Set<Team> teams;
 
     public Set<Team> getTeams() {
         return teams;
     }
-
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
-
-
-
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {

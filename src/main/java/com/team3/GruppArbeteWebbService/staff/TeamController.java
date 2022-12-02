@@ -31,11 +31,12 @@ public class TeamController {
         return teamServiceImpl.save(team);
     }
 
-
-    @GetMapping("/teams/{teamId}/employees")
-    public ResponseEntity<List<Employee>> getAllEmployeesByTeam(@PathVariable(value = "teamId") Long teamId) {
+/*
+    @GetMapping("/teams/{id}/employees")
+    public ResponseEntity<List<Employee>> getAllEmployeesByTeam(@PathVariable(value = "id") long teamId) {
         return teamServiceImpl.getAllEmployeesByTeam(teamId);
     }
+*/
 
     @DeleteMapping("/deleteTeam/{id}")
     public ResponseEntity<Team> deleteTeam (@PathVariable (value = "id") long teamId){

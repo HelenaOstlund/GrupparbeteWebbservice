@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public ResponseEntity<Team> save(@RequestBody Team team) {
+    public ResponseEntity<Team> save(Team team) {
         try {
             teamRepository.save(new Team(team.getTeamType(), team.getManagerId()));
             return new ResponseEntity<>(team, HttpStatus.CREATED);
@@ -42,15 +41,18 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
+    //TODO -make it work
+/*
     @Override
     public ResponseEntity<List<Employee>> getAllEmployeesByTeam(long teamId) {
-        if (!teamRepository.existsById(teamId)) {
-            throw new IllegalStateException("Not found teams with id = " + teamId);
-        }
-        List<Employee> employees = employeeRepository.findEmployeeByTeams(teamId);
-        return new ResponseEntity<>(employees, HttpStatus.OK);
+      try{
+          List<Employee> employees = employeeRepository.findEmployeeByTeams(teamId);
+          return new ResponseEntity<>(employees, HttpStatus.OK);
+      } catch (Exception e){
+          return new ResponseEntity("Team not found: " + e, HttpStatus.NOT_FOUND);
+      }
     }
-
+ */
     @Override
     public ResponseEntity<Team> deleteTeam(long id) {
         try {

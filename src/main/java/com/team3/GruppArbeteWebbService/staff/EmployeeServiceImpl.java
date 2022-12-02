@@ -40,17 +40,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-
-
+  //TODO- make it work
+/*
     @Override
-    public ResponseEntity<List<Team>> getAllTeamsByEmployeeId(Long employeeId) {
-        if (!employeeRepository.existsById(employeeId)) {
-            throw new IllegalStateException("Not found employee  with id = " + employeeId);
-        }
-        List<Team> teams = teamRepository.findTeamsByEmployees(employeeId);
-        return new ResponseEntity<>(teams, HttpStatus.OK);
+    public ResponseEntity<List<Team>> getAllTeamsByEmployee(long id) {
+       try{
+           List<Team> teams = teamRepository.findTeamsByEmployees(id);
+           return new ResponseEntity<>(teams, HttpStatus.OK);
+       } catch (Exception e){
+           return new ResponseEntity("Employee not found: " + e, HttpStatus.NOT_FOUND);
+       }
     }
 
+ */
 
     @Override
     public ResponseEntity<Employee> addEmployeeToTeam(long teamId, Employee employeeRequest) {
