@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SupplierInfoServiceImpl implements SupplierInfoService {
@@ -17,7 +16,6 @@ public class SupplierInfoServiceImpl implements SupplierInfoService {
     public SupplierInfoServiceImpl(SupplierInfoRepository supplierInfoRepository) {
         this.supplierInfoRepository = supplierInfoRepository;
     }
-
     @Override
     public ResponseEntity<List<SupplierInfo>>getAllSupplierInfo() {
         try {
@@ -40,11 +38,14 @@ public class SupplierInfoServiceImpl implements SupplierInfoService {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @Override
-    public ResponseEntity<SupplierInfo> delete(int id) {
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity delete(int id) {
+        if(supplierInfoRepository.existsById(id)){
+            supplierInfoRepository.deleteById(id);
+
+        }else {
+            throw new RuntimeException("SupplierInfo-Id does not exist");
+        }
+        return null;
     }
-
-
 }
