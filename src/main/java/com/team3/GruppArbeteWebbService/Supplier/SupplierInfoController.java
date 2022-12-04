@@ -1,6 +1,7 @@
 package com.team3.GruppArbeteWebbService.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -14,17 +15,16 @@ public class SupplierInfoController {
         this.supplierInfoService = supplierInfoService;
     }
     @GetMapping("/supplierInfo")
-    private List<SupplierInfo> getAllSupplierInfo() {
+    public ResponseEntity<List<SupplierInfo>> getAllSupplierInfo() {
         return supplierInfoService.getAllSupplierInfo();
     }
     @PostMapping("/supplierInfo")
-    private int createSupplierInfo(@RequestBody SupplierInfo supplierInfo){
-        supplierInfoService.create(supplierInfo);
-        return supplierInfo.getId();
+    public ResponseEntity <SupplierInfo> createSupplierInfo(@RequestBody SupplierInfo supplierInfo){
+        return supplierInfoService.create(supplierInfo);
     }
     @DeleteMapping("/supplierInfo/{id}")
-    private void deleteSupplierInfo(@PathVariable("id") int id) {
-        supplierInfoService.delete(id);
+    public ResponseEntity <SupplierInfo> deleteSupplierInfoById(@PathVariable("id") int id) {
+        return supplierInfoService.delete(id);
     }
 
 }

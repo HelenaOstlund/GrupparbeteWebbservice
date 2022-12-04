@@ -1,29 +1,14 @@
 package com.team3.GruppArbeteWebbService.Supplier;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
-@Service
-public class SupplierInfoService {
 
-    final SupplierInfoRepository supplierInfoRepository;
+public interface SupplierInfoService {
 
-    @Autowired
-    public SupplierInfoService(SupplierInfoRepository supplierInfoRepository) {
-        this.supplierInfoRepository = supplierInfoRepository;
-    }
-    public List<SupplierInfo> getAllSupplierInfo() {
-        List<SupplierInfo> suppliersInfo = new ArrayList<SupplierInfo>();
-        supplierInfoRepository.findAll().forEach(supplierInfo -> suppliersInfo.add(supplierInfo));
-        return suppliersInfo;
-    }
-    public void create(SupplierInfo supplierInfo) {
-        supplierInfoRepository.save(supplierInfo);
-    }
-    public void delete(int id) {
-        supplierInfoRepository.deleteById(id);
-    }
+    ResponseEntity<List<SupplierInfo>> getAllSupplierInfo();
+    ResponseEntity<SupplierInfo> create(SupplierInfo supplierInfo);
+    ResponseEntity<SupplierInfo> delete(int id);
+
 
 }
