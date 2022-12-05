@@ -11,15 +11,11 @@ public class TeamController {
 
     private final TeamServiceImpl teamServiceImpl;
 
-    //eller employeeServiceImpl?
-   // private final EmployeeService employeeService;
-
     @Autowired
     public TeamController(TeamServiceImpl teamServiceImpl) {
         this.teamServiceImpl = teamServiceImpl;
 
     }
-
 
     @GetMapping("/team")
     private ResponseEntity<List<Team>> getEmployeesInTeam() {
@@ -31,12 +27,6 @@ public class TeamController {
         return teamServiceImpl.save(team);
     }
 
-/*
-    @GetMapping("/teams/{id}/employees")
-    public ResponseEntity<List<Employee>> getAllEmployeesByTeam(@PathVariable(value = "id") long teamId) {
-        return teamServiceImpl.getAllEmployeesByTeam(teamId);
-    }
-*/
 
     @DeleteMapping("/deleteTeam/{id}")
     public ResponseEntity<Team> deleteTeam (@PathVariable (value = "id") long teamId){

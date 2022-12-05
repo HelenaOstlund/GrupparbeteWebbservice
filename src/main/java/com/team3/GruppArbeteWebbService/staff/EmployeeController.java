@@ -9,14 +9,12 @@ import java.util.List;
 @RestController
 public class EmployeeController {
 
-
     private final EmployeeServiceImpl employeeServiceImpl;
 
     @Autowired
     public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
         this.employeeServiceImpl = employeeServiceImpl;
     }
-
 
     @GetMapping("/employee")
     private ResponseEntity<List<Employee>> getAllEmployees() {

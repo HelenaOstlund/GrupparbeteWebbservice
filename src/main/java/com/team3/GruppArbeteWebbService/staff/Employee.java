@@ -15,12 +15,10 @@ import java.util.Set;
 @Table(name = "employee")
 public class Employee{
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
 
     @Column(name = "name")
     private String name;
@@ -37,9 +35,6 @@ public class Employee{
 
     public Set<Team> getTeams() {
         return teams;
-    }
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
     }
 
     @ManyToMany(fetch = FetchType.LAZY,
